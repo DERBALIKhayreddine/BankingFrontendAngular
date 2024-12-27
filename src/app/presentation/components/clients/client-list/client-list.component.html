@@ -1,0 +1,59 @@
+
+<br>
+
+<div class="header-container">
+  <!-- Search bar with autocomplete for filtering -->
+  <div class="search-container">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="filterValue" (ngModelChange)="applyFilter()" [matAutocomplete]="auto" placeholder="Search by name">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let client of filteredClients" [value]="client.nom">
+          {{ client.nom }} {{ client.prenom }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <!-- Create Extended FAB button -->
+  <button mat-raised-button color="primary" (click)="openClientFormDialog()" class="create-btn">
+    <mat-icon>add_circle</mat-icon> Create New
+  </button>
+</div>
+
+<!-- Client Table -->
+<mat-table [dataSource]="filteredClients" matSort>
+  <!-- Name Column -->
+  <ng-container matColumnDef="nom">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Firstname</mat-header-cell>
+    <mat-cell *matCellDef="let client">{{ client.nom }}</mat-cell>
+  </ng-container>
+
+  <!-- Surname Column -->
+  <ng-container matColumnDef="prenom">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Lastname</mat-header-cell>
+    <mat-cell *matCellDef="let client">{{ client.prenom }}</mat-cell>
+  </ng-container>
+
+  <!-- RIB Column -->
+  <ng-container matColumnDef="rib">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>n° RIB</mat-header-cell>
+    <mat-cell *matCellDef="let client">{{ client.rib }}</mat-cell>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+    <mat-cell *matCellDef="let client">
+      <button mat-icon-button (click)="editClient(client)" aria-label="Edit Client" class="edit-btn">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="deleteClient(client.id)" aria-label="Delete Client" class="delete-btn">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

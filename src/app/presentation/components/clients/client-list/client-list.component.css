@@ -1,0 +1,83 @@
+/* Use Flexbox for header alignment */
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Align search and button on the same line */
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-container {
+    flex: 1; /* Make the search container take available space */
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  button.create-btn {
+    margin-left: 10px; /* Add some space between search bar and button */
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  /* Styling for the extended FAB button */
+  button.create-btn mat-icon {
+    margin-right: 8px; /* Space between icon and text */
+  }
+  
+  mat-form-field.search-field {
+    width: 250px; /* Adjust size for the search bar */
+  }
+  
+  /* Style for the search input */
+  input[matInput] {
+    width: 100%;
+  }
+  
+  /* Style the table */
+  mat-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  mat-header-row, mat-row {
+    height: 50px;
+  }
+  
+  /* Style the action buttons */
+  mat-icon-button {
+    margin: 0 5px;
+    border-radius: 50%; /* Rounded button shape */
+  }
+  
+  /* Set a consistent width for columns */
+  mat-column-nom,
+  mat-column-prenom,
+  mat-column-rib {
+    width: 25%;
+  }
+  
+  mat-column-actions {
+    width: 15%;
+  }
+  
+  /* Add spacing and align items properly in the table */
+  .mat-header-cell, .mat-cell {
+    padding: 16px;
+    text-align: left;
+  }
+  
+  /* Style the edit button */
+  button.edit-btn {
+    background-color: #ffeb3b; /* Yellow */
+    color: black;
+  }
+  
+  /* Style the delete button */
+  button.delete-btn {
+    background-color: #f44336; /* Red */
+    color: white;
+  }
+  button[mat-raised-button]:hover {
+    background-color: #ffc107; /* Yellow background on hover */
+    color: black; /* Black text on hover */
+  }

@@ -1,0 +1,57 @@
+/* Toolbar styling */
+mat-toolbar {
+  background-color: #131010 !important; /* Replace with your desired color */
+  color: white; /* Adjust text color for contrast */
+}
+
+
+/* Align and style buttons */
+.example-spacer {
+  flex: 2;
+  display: inline-flex;
+  justify-content: center; /* Center the buttons horizontally */
+  gap: 15px; /* Add space between the buttons */
+}
+
+/* Button styling */
+button[mat-raised-button] {
+  text-transform: uppercase; /* Uppercase for consistency */
+  display: flex;
+  align-items: center; /* Align text and icon vertically */
+  gap: 8px; /* Space between icon and text */
+  font-weight: bold; /* Bold text */
+  padding: 10px 16px; /* Add padding for a better feel */
+}
+
+button[mat-raised-button] mat-icon {
+  font-size: 20px; /* Adjust icon size */
+}
+
+button[mat-raised-button]:hover {
+  background-color: #ffc107; /* Yellow background on hover */
+  color: black; /* Black text on hover */
+}
+html, body {
+  height: 100%; /* Ensure the HTML and body elements take up full height */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-container {
+  flex: 1; /* Take up the remaining space between the header and footer */
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1; /* Ensure the content expands to fill available space */
+}
+
+.footer {
+  background-color: #f1f1f1; /* Adjust background color as needed */
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 1.2rem;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for a raised effect */
+}

@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>{{ client.id ? 'Edit Client' : 'Create Client' }}</h2>
+
+<form (ngSubmit)="saveClient()" class="client-form">
+  <mat-form-field appearance="fill">
+    <mat-label>First Name</mat-label>
+    <input matInput [(ngModel)]="client.nom" name="nom" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Last Name</mat-label>
+    <input matInput [(ngModel)]="client.prenom" name="prenom" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>n° RIB</mat-label>
+    <input matInput [(ngModel)]="client.rib" name="rib" required />
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <!-- Cancel Button -->
+    <button mat-raised-button color="warn" (click)="onNoClick()" class="cancel-btn">
+      <mat-icon>cancel</mat-icon> Cancel
+    </button>
+
+    <!-- Submit Button -->
+    <button mat-raised-button color="accent" type="submit" class="update-btn">
+      <mat-icon>save</mat-icon> {{ client.id ? 'Update' : 'Create' }}
+    </button>
+  </div>
+</form>

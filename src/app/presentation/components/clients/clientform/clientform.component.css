@@ -1,0 +1,54 @@
+/* General form styling */
+.client-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Add spacing between fields */
+  padding: 20px;
+}
+
+/* Smaller input fields */
+mat-form-field {
+  width: 100%;
+}
+
+input {
+  font-size: 14px; /* Smaller text size */
+  padding: 6px; /* Smaller padding */
+}
+
+mat-dialog-title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: #4caf50; /* Green header for a polished look */
+  margin-bottom: 15px;
+}
+
+/* Button styles */
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Add spacing between buttons */
+}
+
+button.cancel-btn {
+  background-color: #f44336; /* Red for cancel */
+  color: white;
+}
+
+button.cancel-btn:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+button.update-btn {
+  background-color: #ffeb3b; /* Yellow for update */
+  color: black;
+}
+
+button.update-btn:hover {
+  background-color: #fdd835; /* Darker yellow on hover */
+}
+
+mat-icon {
+  margin-right: 5px; /* Space between icon and text */
+}

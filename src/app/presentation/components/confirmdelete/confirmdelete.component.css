@@ -1,0 +1,26 @@
+mat-dialog-title {
+    color: #ff5722; /* Color for title */
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .delete-fab {
+    background-color: #f44336; /* Red color for danger */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .delete-fab mat-icon {
+    margin-right: 8px; /* Space between icon and text */
+  }
+  
+  .delete-fab:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+  }
+  
