@@ -1,23 +1,24 @@
-import { Component, inject, NgModule, OnInit } from '@angular/core';
+import { Component, inject, NgModule, OnInit, ViewChild } from '@angular/core';
 import { Client } from '../../../../models/client.model';
 import { ClientService } from '../../../../services/client.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { ClientformComponent } from '../clientform/clientform.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';  // Required for mat-autocomplete
 import { MatOptionModule } from '@angular/material/core';  // Required for mat-option
 import {MatCardModule} from '@angular/material/card';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ConfirmdeleteComponent } from '../../confirmdelete/confirmdelete.component';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 @Component({
   selector: 'app-client-list',
   imports: [
@@ -32,101 +33,93 @@ import { ConfirmdeleteComponent } from '../../confirmdelete/confirmdelete.compon
     MatSortModule,
     MatAutocompleteModule,  // Import for mat-autocomplete
     MatOptionModule,   
-    MatCardModule 
+    MatCardModule,
+    MatPaginatorModule
   ],
   templateUrl: './client-list.component.html',
   styleUrl: './client-list.component.css'
 })
 export class ClientListComponent implements OnInit {
-  clients: Client[] = [];
-  filteredClients: Client[] = [];
-  filterValue: string = '';
-  displayedColumns: string[] = ['nom', 'prenom', 'rib', 'actions'];
-  toaster = inject(ToastrService); // Inject ToastrService
+  displayedColumns: string[] = ['id', 'nom', 'prenom', 'rib', 'accountBalance', 'actions'];
+  dataSource = new MatTableDataSource<Client>();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private clientService: ClientService,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
+    private toaster: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.loadClients();
   }
 
+  // Load clients
   loadClients(): void {
-    this.clientService.getAllClients().subscribe(
-      (data) => {
-        this.clients = data;
-        this.filteredClients = data;
-      },
-      (error) => {
-        console.error('Error loading clients', error);
-        this.toaster.error('Failed to load clients', 'Error'); // Show error if loading fails
-      }
-    );
+    this.clientService.getAllClients().subscribe((clients) => {
+      this.dataSource.data = clients.map((client) => ({
+        ...client,
+        rib: client.accounts?.length ? client.accounts.map((acc) => acc.rib).join(', ') : 'No RIB',
+        accountBalance: client.accounts?.reduce((sum, acc) => sum + acc.accountBalance, 0) || 0,
+      }));
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
-  applyFilter(): void {
-    const filterValueLowerCase = this.filterValue.trim().toLowerCase();
-    if (filterValueLowerCase) {
-      this.filteredClients = this.clients.filter((client) =>
-        client.nom.toLowerCase().includes(filterValueLowerCase) || 
-        client.prenom.toLowerCase().includes(filterValueLowerCase) ||
-        client.rib.toLowerCase().includes(filterValueLowerCase)
-      );
-    } else {
-      this.filteredClients = [...this.clients]; // Reset if no filter value
+  // Apply filter
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 
-  editClient(client: Client): void {
+  // Open edit dialog
+  openEditDialog(client: Client): void {
     const dialogRef = this.dialog.open(ClientformComponent, {
-      width: '500px',
-      height: '500px',
-      data: client
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.loadClients();
-        this.toaster.success('Client updated successfully', 'Success');
-      }
-    });
-  }
-
-  openClientFormDialog(): void {
-    const dialogRef = this.dialog.open(ClientformComponent, {
-      width: '500px',
-      height: '500px',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.loadClients();
-        this.toaster.success('Client created successfully', 'Success');
-      }
-    });
-  }
-
-  deleteClient(id: number): void {
-    const dialogRef = this.dialog.open(ConfirmdeleteComponent, {
       width: '400px',
-      data: { id: id }
+      data: client,
     });
 
-    dialogRef.afterClosed().subscribe((confirmDelete) => {
-      if (confirmDelete) {
-        this.clientService.deleteClient(id).subscribe(
-          () => {
-            this.clients = this.clients.filter((client) => client.id !== id);
-            this.filteredClients = this.filteredClients.filter((client) => client.id !== id);
-            this.toaster.success('Client deleted successfully', 'Success');
-          },
-          (error) => {
-            console.error('Error deleting client', error);
-            this.toaster.error('Failed to delete client', 'Error');
-          }
-        );
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.toaster.success('Client updated successfully!', 'Success');
+        this.loadClients();
+      }
+    });
+  }
+
+  // Open delete dialog
+  openDeleteDialog(client: Client): void {
+    const dialogRef = this.dialog.open(ConfirmdeleteComponent, {
+      width: '300px',
+      data: { type: 'Client', name: `${client.nom} ${client.prenom}` },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.clientService.deleteClient(client.id).subscribe(() => {
+          this.toaster.success('Client deleted successfully!', 'Success');
+          this.loadClients();
+        });
+      }
+    });
+  }
+  openAddDialog(): void {
+    const dialogRef = this.dialog.open(ClientformComponent, {
+      width: '400px',
+      data: { id: null, nom: '', prenom: '', accounts: [] }, // Empty client object for creation
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.toaster.success('Client added successfully!', 'Success');
+        this.loadClients(); // Refresh the list after adding
       }
     });
   }

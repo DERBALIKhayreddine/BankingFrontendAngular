@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSortModule } from '@angular/material/sort';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-clientform',
@@ -29,32 +30,28 @@ import { MatSortModule } from '@angular/material/sort';
   styleUrl: './clientform.component.css'
 })
 export class ClientformComponent {
-  client: Client;
-
   constructor(
     public dialogRef: MatDialogRef<ClientformComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Client,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private toaster: ToastrService
   ) {
-    this.client = { ...data }; // Clone the data passed to the dialog
-  }
-
-  saveClient(): void {
-    if (this.client.id) {
-      // Update client
-      this.clientService.updateClient(this.client.id, this.client).subscribe(() => {
-        this.dialogRef.close(this.client);
-      });
-    } else {
-      // Create new client
-      this.clientService.createClient(this.client).subscribe(() => {
-        this.dialogRef.close(this.client);
-      });
+    if (!this.data.accounts) {
+      this.data.accounts = [];
     }
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  save(): void {
+    if (this.data.id) {
+      this.clientService.updateClient(this.data.id, this.data).subscribe(() => {
+        this.toaster.success('Client updated successfully!', 'Success');
+        this.dialogRef.close(true);
+      });
+    } else {
+      this.clientService.createClient(this.data).subscribe(() => {
+        this.toaster.success('Client created successfully!', 'Success');
+        this.dialogRef.close(true);
+      });
+    }
   }
 }
-

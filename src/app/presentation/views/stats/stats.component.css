@@ -1,0 +1,25 @@
+/* Container for all charts */
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px; /* Space between cards */
+    flex-wrap: wrap; /* Adjust layout for smaller screens */
+  }
+  
+  /* Card styles */
+  .stats-card {
+    flex: 1; /* Ensure equal sizes for all cards */
+    max-width: calc(33.33% - 16px); /* Equal width */
+    min-width: 300px; /* Minimum width for responsiveness */
+    height: 400px; /* Fixed height for consistent layout */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  mat-card-title {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  

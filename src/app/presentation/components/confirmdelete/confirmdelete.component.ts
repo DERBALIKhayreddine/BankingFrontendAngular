@@ -9,17 +9,16 @@ import {MatIconModule} from '@angular/material/icon';
   styleUrl: './confirmdelete.component.css'
 })
 export class ConfirmdeleteComponent {
-
   constructor(
     public dialogRef: MatDialogRef<ConfirmdeleteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   onNoClick(): void {
-    this.dialogRef.close(false); // Close without confirming
+    this.dialogRef.close(false);
   }
 
   onConfirmDelete(): void {
-    this.dialogRef.close(true); // Close and confirm deletion
+    this.dialogRef.close(true);
   }
 }

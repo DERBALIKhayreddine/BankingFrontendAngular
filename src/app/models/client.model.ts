@@ -1,9 +1,8 @@
-import { Account } from "./account.model";
+import { Account } from './account.model';
 
 export interface Client {
-    id: number;          
-    nom: string;         
-    prenom: string;      
-    rib: string;          
-    accounts: Account[];  
-  }
+  id: number;             // Unique identifier for the client
+  nom: string;            // Client's first name
+  prenom: string;         // Client's last name
+  accounts?: Account[];   // List of accounts associated with the client
+}

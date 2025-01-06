@@ -1,1 +1,41 @@
-<p>stats works!</p>
+<div class="stats-container">
+    <!-- Statistics Overview as Pie Chart -->
+    <mat-card class="stats-card">
+      <mat-card-title>Statistics Overview</mat-card-title>
+      <mat-card-content>
+        <apx-chart
+          [series]="statisticsOverviewOptions.series"
+          [chart]="statisticsOverviewOptions.chart"
+          [labels]="statisticsOverviewOptions.labels"
+          [title]="statisticsOverviewOptions.title"
+        ></apx-chart>
+      </mat-card-content>
+    </mat-card>
+  
+    <!-- Accounts by Clients as Line Chart -->
+    <mat-card class="stats-card">
+      <mat-card-title>Accounts by Clients</mat-card-title>
+      <mat-card-content>
+        <apx-chart
+          [series]="accountsByClientsChartOptions.series"
+          [chart]="accountsByClientsChartOptions.chart"
+          [xaxis]="accountsByClientsChartOptions.xaxis"
+          [title]="accountsByClientsChartOptions.title"
+        ></apx-chart>
+      </mat-card-content>
+    </mat-card>
+  
+    <!-- Clients by Accounts as Area Chart -->
+    <mat-card class="stats-card">
+      <mat-card-title>Clients by Accounts</mat-card-title>
+      <mat-card-content>
+        <apx-chart
+          [series]="clientsByAccountsChartOptions.series"
+          [chart]="clientsByAccountsChartOptions.chart"
+          [xaxis]="clientsByAccountsChartOptions.xaxis"
+          [title]="clientsByAccountsChartOptions.title"
+        ></apx-chart>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

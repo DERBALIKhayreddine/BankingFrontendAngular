@@ -1,54 +1,49 @@
-<div class="client-list">
-    <br>
+<div class="account-list">
     <mat-card>
+        <br>
       <mat-card-title>
-        <button mat-raised-button color="primary" class="add-client-btn" (click)="openAddDialog()">
-          <mat-icon>person_add</mat-icon> Add Client
+        <button mat-raised-button color="primary" class="add-account-btn" (click)="openAddDialog()">
+          <mat-icon>add</mat-icon> Add Account
         </button>
       </mat-card-title>
-      <br>
   
+      <br>
       <mat-card-content>
         <!-- Filter Input -->
         <mat-form-field appearance="outline">
           <mat-label>Search</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Filter by name, lastname, or RIB">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Filter by RIB or Client Name">
         </mat-form-field>
   
         <!-- Material Table -->
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let client"> {{ client.id }} </td>
-          </ng-container>
-  
-          <ng-container matColumnDef="nom">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let client"> {{ client.nom }} </td>
-          </ng-container>
-  
-          <ng-container matColumnDef="prenom">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
-            <td mat-cell *matCellDef="let client"> {{ client.prenom }} </td>
+            <td mat-cell *matCellDef="let account"> {{ account.id }} </td>
           </ng-container>
   
           <ng-container matColumnDef="rib">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> RIB </th>
-            <td mat-cell *matCellDef="let client"> {{ client.rib }} </td>
+            <td mat-cell *matCellDef="let account"> {{ account.rib }} </td>
           </ng-container>
   
           <ng-container matColumnDef="accountBalance">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Balance </th>
-            <td mat-cell *matCellDef="let client"> {{ client.accountBalance | currency }} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Balance </th>
+            <td mat-cell *matCellDef="let account"> {{ account.accountBalance | currency }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="clientName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
+            <td mat-cell *matCellDef="let account"> {{ account.clientName }} </td>
           </ng-container>
   
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Actions </th>
-            <td mat-cell *matCellDef="let client">
-              <button mat-icon-button color="primary" (click)="openEditDialog(client)">
+            <td mat-cell *matCellDef="let account">
+              <button mat-icon-button color="primary" (click)="openEditDialog(account)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" (click)="openDeleteDialog(client)">
+              <button mat-icon-button color="warn" (click)="openDeleteDialog(account)">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>

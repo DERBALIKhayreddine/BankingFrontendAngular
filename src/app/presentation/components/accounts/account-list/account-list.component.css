@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.client-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.account-table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+mat-card-header {
+  background-color: #f5f5f5;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}

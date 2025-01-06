@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{ data.account.id ? 'Edit Account' : 'Add Account' }}</h2>
+
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>RIB</mat-label>
+    <input matInput [(ngModel)]="data.account.rib" placeholder="Enter RIB" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Balance</mat-label>
+    <input matInput type="number" [(ngModel)]="data.account.accountBalance" placeholder="Enter Balance" required />
+  </mat-form-field>
+
+  <!-- Client Dropdown -->
+  <mat-form-field *ngIf="!data.account.id" appearance="outline">
+    <mat-label>Client</mat-label>
+    <mat-select [(ngModel)]="selectedClientId" required>
+      <mat-option *ngFor="let client of clients" [value]="client.id">
+        {{ client.nom }} {{ client.prenom }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <p *ngIf="data.account.id && data.account.client">
+    Associated Client: {{ data.account.client.nom }} {{ data.account.client.prenom }}
+  </p>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" (click)="save()">Save</button>
+</div>
