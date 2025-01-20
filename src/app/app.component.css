@@ -28,7 +28,7 @@ button[mat-raised-button] mat-icon {
 }
 
 button[mat-raised-button]:hover {
-  background-color: #ffc107; /* Yellow background on hover */
+  background-color: #ff0707; /* Yellow background on hover */
   color: black; /* Black text on hover */
 }
 html, body {
@@ -49,8 +49,9 @@ html, body {
 }
 
 .footer {
-  background-color: #f1f1f1; /* Adjust background color as needed */
+  background-color: #000000; /* Adjust background color as needed */
   text-align: center;
+  color: azure;
   padding: 20px 10px;
   font-size: 1.2rem;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for a raised effect */

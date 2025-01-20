@@ -1,35 +1,23 @@
 <mat-toolbar color="primary">
-  <span>Springboot & Angular Application</span>
+  <span>CLient Management</span>
   <span class="example-spacer">
-    <!-- Home Button -->
-    <button mat-raised-button color="accent" [routerLink]="['/']">
+    <!-- Home Icon -->
+    <a mat-icon-button [routerLink]="['/']">
       <mat-icon>home</mat-icon>
-      <span>Home</span>
-    </button>
+    </a>
 
-    <!-- Users Button -->
-    <button mat-raised-button color="accent" [routerLink]="['/clients']">
+    <!-- Users Icon -->
+    <a mat-icon-button [routerLink]="['/clients']">
       <mat-icon>people</mat-icon>
-      <span>Users</span>
-    </button>
+    </a>
 
-    <!-- Accounts Button -->
-    <button mat-raised-button color="accent" [routerLink]="['/accounts']">
+    <!-- Accounts Icon -->
+    <a mat-icon-button [routerLink]="['/accounts']">
       <mat-icon>account_circle</mat-icon>
-      <span>Accounts</span>
-    </button>
-
-    <!-- Stats Button -->
-    <button mat-raised-button color="accent" [routerLink]="['/stats']">
-      <mat-icon>insert_chart</mat-icon>
-      <span>Stats</span>
-    </button>
-    <button mat-raised-button color="accent" [routerLink]="['/NotFound']">
-      <mat-icon>not_interested</mat-icon>
-      <span>404</span>
-    </button>
+    </a>
   </span>
 </mat-toolbar>
+
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#ffc107" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
 <router-outlet></router-outlet>
 
@@ -44,7 +32,7 @@
     <i class="fa fa-snapchat w3-hover-opacity"></i>&nbsp;
     <i class="fa fa-linkedin w3-hover-opacity"></i>
     <p class="w3-medium">Powered by 
-      <a href="" target="_blank">Derbali Khaireddine 2024</a>
+      <a href="" target="_blank">Mahdy chaari</a>
     </p>
   </footer>
 </div>

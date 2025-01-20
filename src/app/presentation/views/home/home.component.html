@@ -1,20 +1,41 @@
-<div class="carousel-container">
-    <div
-      class="carousel-slide"
-      *ngFor="let slide of slides; let i = index"
-      [class.active]="i === currentSlide"
-    >
-      <mat-card>
-        <img mat-card-image [src]="slide.image" [alt]="slide.title" />
-        <mat-card-content>
-          <h3>{{ slide.title }}</h3>
-          <p>{{ slide.description }}</p>
-          <a [href]="slide.link" target="_blank" mat-raised-button color="accent">Learn More</a>
-        </mat-card-content>
-      </mat-card>
-    </div>
+<div class="stats-container">
+    <!-- Statistics Overview as Pie Chart -->
+    <mat-card class="stats-card">
+      <mat-card-title>Statistics Overview</mat-card-title>
+      <mat-card-content>
+        <apx-chart
+          [series]="statisticsOverviewOptions.series"
+          [chart]="statisticsOverviewOptions.chart"
+          [labels]="statisticsOverviewOptions.labels"
+          [title]="statisticsOverviewOptions.title"
+        ></apx-chart>
+      </mat-card-content>
+    </mat-card>
   
-    <button mat-mini-fab color="primary" class="prev" (click)="previousSlide()">&#10094;</button>
-    <button mat-mini-fab color="primary" class="next" (click)="nextSlide()">&#10095;</button>
+    <!-- Accounts by Clients as Line Chart -->
+    <mat-card class="stats-card">
+      <mat-card-title>Accounts by Clients</mat-card-title>
+      <mat-card-content>
+        <apx-chart
+          [series]="accountsByClientsChartOptions.series"
+          [chart]="accountsByClientsChartOptions.chart"
+          [xaxis]="accountsByClientsChartOptions.xaxis"
+          [title]="accountsByClientsChartOptions.title"
+        ></apx-chart>
+      </mat-card-content>
+    </mat-card>
+  
+    <!-- Clients by Accounts as Area Chart -->
+    <mat-card class="stats-card">
+      <mat-card-title>Clients by Accounts</mat-card-title>
+      <mat-card-content>
+        <apx-chart
+          [series]="clientsByAccountsChartOptions.series"
+          [chart]="clientsByAccountsChartOptions.chart"
+          [xaxis]="clientsByAccountsChartOptions.xaxis"
+          [title]="clientsByAccountsChartOptions.title"
+        ></apx-chart>
+      </mat-card-content>
+    </mat-card>
   </div>
   
